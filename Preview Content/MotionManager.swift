@@ -26,7 +26,7 @@ class MotionManager: ObservableObject {
                       let y = accelerometerData.acceleration.y
                       let z = accelerometerData.acceleration.z
                       
-                      let total = sqrt(x * x + y * y + z * z) / 9.81
+                      let total = sqrt(x * x + y * y + z * z)
                       
                       // Update the published accelerometerData property
                       self?.accelerometerData = (x, y, z, total)
