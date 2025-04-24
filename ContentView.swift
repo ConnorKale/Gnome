@@ -15,10 +15,10 @@ struct ContentView: View {
     var body: some View {
         
         let backgroundColor: Color
-            if motionManager.accelerometerData.total < 0.5 {
-                backgroundColor = Color(red: 1.0, green: 0.0, blue: 0.0) // Red
-            } else if motionManager.accelerometerData.total >= 0.5 && motionManager.accelerometerData.total <= 1.5 {
-                backgroundColor = Color(red: 0.0, green: 1.0, blue: 0.0) // Green
+            if motionManager.accelerometerData.total < 1.5 {
+                backgroundColor = Color(red: 0.0, green: 1.0, blue: 0.0) // Red
+            } else if motionManager.accelerometerData.total >= 1.5 && motionManager.accelerometerData.total <= 3 {
+                backgroundColor = Color(red: 1.0, green: 0.0, blue: 0.0) // Green
             } else {
                 backgroundColor = Color(red: 0.0, green: 0.0, blue: 1.0) // Blue
             }
