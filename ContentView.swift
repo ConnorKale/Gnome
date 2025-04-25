@@ -36,12 +36,17 @@ struct ContentView: View {
             Text("X: \(motionManager.accelerometerData.x, specifier: "%.2f")")
             Text("Y: \(motionManager.accelerometerData.y, specifier: "%.2f")")
             Text("Z: \(motionManager.accelerometerData.z, specifier: "%.2f")")
-            Text("Total: \(motionManager.accelerometerData.total, specifier: "%.2f")")
+            Text("Σ: \(motionManager.accelerometerData.total, specifier: "%.2f")")
                 .padding()
+                .font(.system(size: 100))
+
+
+
         }
         .padding()
         .background(backgroundColor) // Set background color based on accelerometer data
         .ignoresSafeArea() // Optional: To fill the entire screen with color
+        
 
         .onAppear {
             // Additional setup if needed
