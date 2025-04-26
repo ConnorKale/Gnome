@@ -36,9 +36,14 @@ struct ContentView: View {
             Text("X: \(motionManager.accelerometerData.x, specifier: "%.2f")")
             Text("Y: \(motionManager.accelerometerData.y, specifier: "%.2f")")
             Text("Z: \(motionManager.accelerometerData.z, specifier: "%.2f")")
-            Text("Σ: \(motionManager.accelerometerData.total, specifier: "%.2f")")
-                .padding()
-                .font(.system(size: 100))
+            Text("")
+            Text("")
+            Text("")
+            Text("Total:")
+
+            Text("\(motionManager.accelerometerData.total, specifier: "%.2f")")
+                //.padding()
+                .font(.system(size: 150))
 
 
 
