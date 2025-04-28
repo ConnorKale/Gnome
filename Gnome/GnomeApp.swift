@@ -15,3 +15,8 @@ struct GnomeApp: App {
         }
     }
 }
+/*
+#Preview {
+    ContentView()
+}
+*/

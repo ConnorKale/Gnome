@@ -9,7 +9,8 @@ import SwiftUI
 import CoreMotion
 
 class MotionManager: ObservableObject {
-    private var motionManager = CMMotionManager()
+    private let motionManager = CMMotionManager()
+    private let updateInterval = 0.1
     
     @Published var accelerometerData: (x: Double, y: Double, z: Double, total: Double) = (0, 0, 0, 0)
     
@@ -18,32 +19,37 @@ class MotionManager: ObservableObject {
     }
     
     private func startAccelerometerUpdates() {
-          if motionManager.isAccelerometerAvailable {
-              motionManager.accelerometerUpdateInterval = 0.1
-              motionManager.startAccelerometerUpdates(to: OperationQueue.current!) { [weak self] (data, error) in
-                  if let accelerometerData = data {
-                      let x = accelerometerData.acceleration.x
-                      let y = accelerometerData.acceleration.y
-                      let z = accelerometerData.acceleration.z
-                      
-                      let total = sqrt(x * x + y * y + z * z)
-                      
-                      // Update the published accelerometerData property
-                      self?.accelerometerData = (x, y, z, total)
-                  } else if let error = error {
-                      print("Error: \(error.localizedDescription)")
-                  }
-              }
-          }
-      }
-    
+        guard motionManager.isAccelerometerAvailable else {
+            print("Accelerometer is not available.")
+            return
+        }
+
+        motionManager.accelerometerUpdateInterval = updateInterval
+        motionManager.startAccelerometerUpdates(to: .main) { [weak self] data, error in
+            guard let data = data else {
+                if let error = error {
+                    print("Accelerometer error: \(error.localizedDescription)")
+                }
+                return
+            }
+
+            let x = data.acceleration.x
+            let y = data.acceleration.y
+            let z = data.acceleration.z
+            let total = sqrt(x * x + y * y + z * z)
+            self?.accelerometerData = (x, y, z, total)
+        }
+    }
     deinit {
         motionManager.stopAccelerometerUpdates()
     }
 }
-
 /*
-#Preview {
-    MotionManager_()
-}
+ let x = accelerometerData.acceleration.x
+ let y = accelerometerData.acceleration.y
+ let z = accelerometerData.acceleration.z
+ 
+ let total = sqrt(x * x + y * y + z * z)
+ self?.accelerometerData = (x, y, z, total)
+
 */
